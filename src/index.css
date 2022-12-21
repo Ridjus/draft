@@ -49,13 +49,14 @@
 }
 
 :root {
-  --bg-black: #0d1117;
+  --bg-black: #0b0b0b;
 
   --yellow: #edc106;
   --green: #04a94c;
   --red: #d8053a;
 
   --text-color: #ffffff;
+  --text-gray: #9d9d9d;
   --text-opacity: 1;
 
   font-family: 'Open Sans', sans-serif;
@@ -63,6 +64,8 @@
   font-weight: 400;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+
+  --transition: 150ms ease;
 }
 
 *,
@@ -106,7 +109,6 @@ li {
 }
 
 a {
-  text-decoration: none;
   color: inherit;
 }
 

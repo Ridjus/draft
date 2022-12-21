@@ -1,0 +1,83 @@
+.login-form {
+  background-color: #121212;
+  box-shadow: rgba(255 255 255 / 0.02) 0px 1px 1px 0px, rgba(255 255 255 / 0.15) 0px 0px 0px 1px;
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  border-radius: 0.25em;
+  color: var(--text-gray);
+}
+
+.login-title {
+  font-weight: 400;
+  font-size: 1.4em;
+  letter-spacing: 0.015em;
+  margin-bottom: 3em;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.3em;
+  position: relative;
+  margin-block-end: 0.5em;
+}
+
+.login-label {
+  font-size: 0.85em;
+}
+
+.login-input {
+  font-size: 1em;
+  color: inherit;
+  outline: none;
+  border: 0;
+  border-radius: 0.25em;
+  padding: 0.5em;
+  background-color: var(--bg-black);
+  box-shadow: rgba(255 255 255 / 0.02) 0px 1px 1px 0px, rgba(255 255 255 / 0.15) 0px 0px 0px 1px;
+}
+
+.login-password {
+  padding-right: 2.5em;
+}
+
+.forgot-password {
+  font-size: 0.8em;
+  text-align: right;
+  margin-bottom: 3em;
+  transition: var(--transition);
+  transition-property: color;
+}
+
+.form-btn {
+  text-transform: uppercase;
+  padding: 0.25em 1.25em;
+  align-self: center;
+  background-color: var(--yellow);
+  border: 0;
+  border-radius: 0.25em;
+  transition: var(--transition);
+  transition-property: opacity;
+}
+
+.password-visibility-btn {
+  position: absolute;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  bottom: 7px;
+  right: 8px;
+  font-size: 0;
+  fill: var(--text-gray);
+}
+
+@media (hover: hover) {
+  .forgot-password:hover {
+    color: var(--yellow);
+  }
+
+  .form-btn:hover {
+    opacity: 0.7;
+  }
+}
