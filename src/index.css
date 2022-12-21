@@ -124,3 +124,22 @@ a {
     scroll-behavior: auto !important;
   }
 }
+
+.bg-page {
+  background-color: var(--bg-black);
+  color: var(--text-color);
+
+  background-image: radial-gradient(rgba(255 255 255 / 0.1) 2%, transparent 6%);
+  background-position: 0% 0%;
+  background-size: 6vmin 6vmin;
+}
+
+.full-screen {
+  width: 100%;
+  height: 100vh;
+}
+
+.content-center {
+  display: grid;
+  place-items: center;
+}
