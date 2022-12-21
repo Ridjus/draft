@@ -17,12 +17,15 @@ specifiers:
   eslint-plugin-prettier: ^4.2.1
   eslint-plugin-react: ^7.31.11
   eslint-plugin-react-hooks: ^4.6.0
+  immer: ^9.0.16
   msw: ^0.49.2
   prettier: 2.8.1
   react: ^18.2.0
   react-dom: ^18.2.0
   react-router-dom: ^6.5.0
+  ts-pattern: ^4.0.6
   typescript: ^4.9.3
+  use-immer: ^0.8.1
   vite: ^4.0.0
   vite-plugin-svgr: ^2.4.0
   zustand: ^4.1.5
@@ -30,11 +33,14 @@ specifiers:
 dependencies:
   '@tanstack/react-query': 4.20.4_biqbaboplfbrettd7655fr4n2y
   clsx: 1.2.1
+  immer: 9.0.16
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-router-dom: 6.5.0_biqbaboplfbrettd7655fr4n2y
+  ts-pattern: 4.0.6
+  use-immer: 0.8.1_immer@9.0.16+react@18.2.0
   vite-plugin-svgr: 2.4.0_vite@4.0.2
-  zustand: 4.1.5_react@18.2.0
+  zustand: 4.1.5_immer@9.0.16+react@18.2.0
 
 devDependencies:
   '@types/node': 18.11.17
@@ -2221,6 +2227,10 @@ packages:
     engines: {node: '>= 4'}
     dev: true
 
+  /immer/9.0.16:
+    resolution: {integrity: sha512-qenGE7CstVm1NrHQbMh8YaSzTZTFNP3zPqr3YU0S0UY441j4bJTg4A2Hh5KAhwgaiU6ZZ1Ar6y/2f4TblnMReQ==}
+    dev: false
+
   /import-fresh/3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -3257,6 +3267,10 @@ packages:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
     dev: true
 
+  /ts-pattern/4.0.6:
+    resolution: {integrity: sha512-sFHQYD4KoysBi7e7a2mzDPvRBeqA4w+vEyRE+P5MU9VLq8eEYxgKCgD9RNEAT+itGRWUTYN+hry94GDPLb1/Yw==}
+    dev: false
+
   /tsconfig-paths/3.14.1:
     resolution: {integrity: sha512-fxDhWnFSLt3VuTwtvJt5fpwxBHg5AdKWMsgcPOOIilyjymcYVZoCQF8fvFRezCNfblEXmi+PcM1eYHeOAgXCOQ==}
     dependencies:
@@ -3337,6 +3351,16 @@ packages:
     dependencies:
       punycode: 2.1.1
     dev: true
+
+  /use-immer/0.8.1_immer@9.0.16+react@18.2.0:
+    resolution: {integrity: sha512-OfTFf1pL+ICjjcLPn9+ZnaJO/Yg4MBzYZtACEe2mZ/W2A5col28PNUnwowOAaBuOogACOK/37TU17KgsIhUpOw==}
+    peerDependencies:
+      immer: '>=2.0.0'
+      react: ^16.8.0 || ^17.0.1 || ^18.0.0
+    dependencies:
+      immer: 9.0.16
+      react: 18.2.0
+    dev: false
 
   /use-sync-external-store/1.2.0_react@18.2.0:
     resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
@@ -3516,7 +3540,7 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zustand/4.1.5_react@18.2.0:
+  /zustand/4.1.5_immer@9.0.16+react@18.2.0:
     resolution: {integrity: sha512-PsdRT8Bvq22Yyh1tvpgdHNE7OAeFKqJXUxtJvj1Ixw2B9O2YZ1M34ImQ+xyZah4wZrR4lENMoDUutKPpyXCQ/Q==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
@@ -3528,6 +3552,7 @@ packages:
       react:
         optional: true
     dependencies:
+      immer: 9.0.16
       react: 18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
