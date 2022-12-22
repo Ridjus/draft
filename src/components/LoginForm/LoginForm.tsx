@@ -74,7 +74,7 @@ export function LoginForm() {
     setLoginLoading();
     loginWithEmailAndPassword(loginData).then((res) => {
       if (res.status === 200) {
-        navigate('/');
+        navigate('/home');
       } else {
         setLoginError();
         setLoginLoaded();

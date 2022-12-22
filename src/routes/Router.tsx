@@ -1,19 +1,30 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Navigate, useRoutes } from 'react-router-dom';
 
 import { Home } from '~/views/Home/Home';
 import { Login } from '~/views/Login/Login';
 
-const router = createBrowserRouter([
+const publicRoutes = [
   {
-    path: '/',
-    element: <Home />,
-  },
-  {
-    path: '/sign-in',
+    path: '/auth/sign-in',
     element: <Login />,
   },
-]);
+  { path: '*', element: <Navigate to="/auth/sign-in" /> },
+];
+
+const privateRoutes = [
+  {
+    path: '/home',
+    element: <Home />,
+  },
+  { path: '*', element: <Navigate to="/home" /> },
+];
 
 export function Router() {
-  return <RouterProvider router={router} />;
+  const auth = sessionStorage.getItem('is-authenticated');
+
+  const routes = auth ? privateRoutes : publicRoutes;
+
+  const router = useRoutes([...routes]);
+
+  return router;
 }
