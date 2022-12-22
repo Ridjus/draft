@@ -1,43 +1,85 @@
+import { useNavigate } from 'react-router-dom';
 import { match } from 'ts-pattern';
 import { useImmerReducer } from 'use-immer';
 
 import { ReactComponent as VisibilityIcon } from '~/assets/icons/visibility.svg';
 import { ReactComponent as VisibilityOffIcon } from '~/assets/icons/visibility_off.svg';
 import { useBoolean } from '~/hooks/useBoolean';
-import { LoginCredentialsDTO } from '~/services/login';
+import { LoginCredentialsDTO, loginWithEmailAndPassword } from '~/services/login';
+
+import { Loader } from '../Loader/Loader';
 import './LoginForm.css';
 
 enum LOGIN_ACTIONS {
   EMAIL = 'email',
   PASSWORD = 'password',
+  ERROR = 'error',
+  LOADING = 'loading',
 }
 
 interface LoginReducerAction {
   type: LOGIN_ACTIONS;
-  payload: string;
+  payload: string | boolean;
 }
 
-const loginReducer = (state: LoginCredentialsDTO, action: LoginReducerAction) => {
+interface LoginReducerState extends LoginCredentialsDTO {
+  isError: boolean;
+  isLoading: boolean;
+}
+
+const loginReducer = (state: LoginReducerState, action: LoginReducerAction) => {
   match<LOGIN_ACTIONS>(action.type)
     .with(LOGIN_ACTIONS.EMAIL, () => {
-      state.email = action.payload;
+      state.email = action.payload as string;
+      state.isError = false;
       return state;
     })
     .with(LOGIN_ACTIONS.PASSWORD, () => {
-      state.password = action.payload;
+      state.password = action.payload as string;
+      state.isError = false;
       return state;
+    })
+    .with(LOGIN_ACTIONS.ERROR, () => {
+      state.isError = action.payload as boolean;
+      return state;
+    })
+    .with(LOGIN_ACTIONS.LOADING, () => {
+      state.isLoading = action.payload as boolean;
     })
     .otherwise(() => state);
 };
 
 export function LoginForm() {
-  const [loginData, updateLoginData] = useImmerReducer(loginReducer, { email: '', password: '' });
+  const navigate = useNavigate();
+  const [loginData, updateLoginData] = useImmerReducer(loginReducer, {
+    email: '',
+    password: '',
+    isError: false,
+    isLoading: false,
+  });
   const [passwordVisibility, passwordVisibilityOptions] = useBoolean();
+
+  const setLoginError = () => updateLoginData({ type: LOGIN_ACTIONS.ERROR, payload: true });
+  const setLoginLoading = () => updateLoginData({ type: LOGIN_ACTIONS.LOADING, payload: true });
+  const setLoginLoaded = () => updateLoginData({ type: LOGIN_ACTIONS.LOADING, payload: false });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log(loginData);
+    if (!loginData.email || !loginData.password || loginData.isError) {
+      setLoginError();
+      return;
+    }
+
+    setLoginLoading();
+    loginWithEmailAndPassword(loginData).then((res) => {
+      if (res.status === 200) {
+        navigate('/');
+      } else {
+        setLoginError();
+        setLoginLoaded();
+      }
+    });
   };
 
   return (
@@ -55,6 +97,7 @@ export function LoginForm() {
           onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
             updateLoginData({ type: LOGIN_ACTIONS.EMAIL, payload: e.target.value })
           }
+          data-error={loginData.isError}
         />
       </div>
       <div className="form-group">
@@ -69,6 +112,7 @@ export function LoginForm() {
           onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
             updateLoginData({ type: LOGIN_ACTIONS.PASSWORD, payload: e.target.value })
           }
+          data-error={loginData.isError}
         />
         <button
           type="button"
@@ -78,11 +122,11 @@ export function LoginForm() {
           {passwordVisibility ? <VisibilityOffIcon /> : <VisibilityIcon />}
         </button>
       </div>
-      <a href="/" className="forgot-password">
+      <a href="/sign-in" className="forgot-password">
         Forgot password?
       </a>
       <button type="submit" className="form-btn">
-        Sign in
+        {loginData.isLoading ? <Loader color="#121212" /> : 'Sign in'}
       </button>
     </form>
   );

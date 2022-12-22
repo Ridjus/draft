@@ -1,10 +1,10 @@
 .login-form {
-  background-color: #121212;
-  box-shadow: rgba(255 255 255 / 0.02) 0px 1px 1px 0px, rgba(255 255 255 / 0.15) 0px 0px 0px 1px;
+  background-color: #0b0b0b;
   display: flex;
   flex-direction: column;
   padding: 2em;
-  border-radius: 0.25em;
+  border: 1px solid rgb(255 255 255 / 0.05);
+  border-radius: 0.15em;
   color: var(--text-gray);
 }
 
@@ -38,6 +38,12 @@
   box-shadow: rgba(255 255 255 / 0.02) 0px 1px 1px 0px, rgba(255 255 255 / 0.15) 0px 0px 0px 1px;
 }
 
+.login-input[data-error='true'] {
+  box-shadow: rgba(216 5 58 / 1) 0px 1px 1px 0px, rgba(216 5 58 / 1) 0px 0px 0px 1px;
+  -webkit-animation: shake-horizontal 0.6s ease both;
+  animation: shake-horizontal 0.6s ease both;
+}
+
 .login-password {
   padding-right: 2.5em;
 }
@@ -59,6 +65,9 @@
   border-radius: 0.25em;
   transition: var(--transition);
   transition-property: opacity;
+  position: relative;
+  width: 100px;
+  height: 2em;
 }
 
 .password-visibility-btn {
@@ -79,5 +88,62 @@
 
   .form-btn:hover {
     opacity: 0.7;
+  }
+}
+
+@-webkit-keyframes shake-horizontal {
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translateX(-4px);
+    transform: translateX(-4px);
+  }
+  20%,
+  40%,
+  60% {
+    -webkit-transform: translateX(4px);
+    transform: translateX(4px);
+  }
+  80% {
+    -webkit-transform: translateX(2px);
+    transform: translateX(2px);
+  }
+  90% {
+    -webkit-transform: translateX(-2px);
+    transform: translateX(-2px);
+  }
+}
+@keyframes shake-horizontal {
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translateX(-4px);
+    transform: translateX(-4px);
+  }
+  20%,
+  40%,
+  60% {
+    -webkit-transform: translateX(4px);
+    transform: translateX(4px);
+  }
+  80% {
+    -webkit-transform: translateX(2px);
+    transform: translateX(2px);
+  }
+  90% {
+    -webkit-transform: translateX(-2px);
+    transform: translateX(-2px);
   }
 }
