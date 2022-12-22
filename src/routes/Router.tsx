@@ -1,30 +1,37 @@
-import { Navigate, useRoutes } from 'react-router-dom';
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+import { AppLayout } from '~/components/Layout/AppLayout';
+import { AppSettings } from '~/views/AppSettings/AppSettings';
 import { Home } from '~/views/Home/Home';
 import { Login } from '~/views/Login/Login';
+import { UserSettings } from '~/views/UserSettings/UserSettings';
 
-const publicRoutes = [
+const router = createBrowserRouter([
   {
     path: '/auth/sign-in',
     element: <Login />,
   },
-  { path: '*', element: <Navigate to="/auth/sign-in" /> },
-];
-
-const privateRoutes = [
   {
-    path: '/home',
-    element: <Home />,
+    path: '/app',
+    element: <AppLayout />,
+    children: [
+      {
+        path: 'home',
+        element: <Home />,
+      },
+      {
+        path: 'user-settings',
+        element: <UserSettings />,
+      },
+      {
+        path: 'app-settings',
+        element: <AppSettings />,
+      },
+    ],
   },
-  { path: '*', element: <Navigate to="/home" /> },
-];
+  { path: '*', element: <Navigate to="/auth/sign-in" /> },
+]);
 
 export function Router() {
-  const auth = sessionStorage.getItem('is-authenticated');
-
-  const routes = auth ? privateRoutes : publicRoutes;
-
-  const router = useRoutes([...routes]);
-
-  return router;
+  return <RouterProvider router={router} />;
 }
